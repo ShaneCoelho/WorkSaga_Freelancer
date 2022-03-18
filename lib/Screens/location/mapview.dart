@@ -1,19 +1,59 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, unused_import
 
 import 'dart:async';
-
+import 'package:geocoding/geocoding.dart';
+import 'dart:convert';
+import 'package:http/http.dart ' as http;
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class MapView extends StatefulWidget {
   @override
   _MapViewState createState() => _MapViewState();
 }
 
+Future<void> location(double longitude, double latitude, String pincode,
+    String country, String locality) async {
+  final response = await http.post(
+    Uri.parse('https://worksaga.herokuapp.com/api/freelancerprofile/test'),
+    headers: <String, String>{
+      'Content-Type': 'application/json; charset=UTF-8',
+    },
+    body: jsonEncode({
+      'longitude': longitude,
+      'latitude': latitude,
+      'pincode': pincode,
+      'country': country,
+      'city': locality,
+    }),
+  );
+
+  if (response.statusCode == 200) {
+    // If the server did return a 201 CREATED response,
+    // then parse the JSON.
+
+    final responseJson = jsonDecode(response.body).cast<Map<String, dynamic>>();
+    print(responseJson);
+
+    final prefs = await SharedPreferences.getInstance();
+
+// set value
+    prefs.setString('auth-token', responseJson);
+  } else if (response.statusCode == 400) {
+    print(response.body);
+  } else {
+    // If the server did not return a 201 CREATED response,
+    // then throw an exception.
+    throw Exception('Failed to create data.');
+  }
+}
+
 class _MapViewState extends State<MapView> {
   late GoogleMapController googleMapController;
+
   static const initialCamerasPosition = CameraPosition(
     target: LatLng(20.5937, 78.9629),
     zoom: 0,
@@ -123,6 +163,22 @@ class _MapViewState extends State<MapView> {
                                                       position.latitude,
                                                       position.longitude),
                                                   zoom: 14)));
+                                      print(position);
+                                      List<Placemark> placemarks =
+                                          await placemarkFromCoordinates(
+                                              position.latitude,
+                                              position.longitude);
+                                      // print(placemarks);
+                                      var pincode = placemarks[0].postalCode;
+                                      var country = placemarks[0].country;
+                                      var city = placemarks[0].locality;
+                                      location(
+                                          position.longitude,
+                                          position.latitude,
+                                          pincode!,
+                                          country!,
+                                          city!);
+                                      print(placemarks[1]);
                                     },
                                     icon: Icon(Icons
                                         .gps_fixed_outlined), //icon data for elevated button

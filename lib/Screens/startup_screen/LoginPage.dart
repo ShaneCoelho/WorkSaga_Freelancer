@@ -5,6 +5,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:worksaga_freelancer/Screens/location/mapview.dart';
+import 'package:worksaga_freelancer/Screens/profile/profile.dart';
 import 'package:worksaga_freelancer/Screens/startup_screen/signuppage.dart';
 import 'package:worksaga_freelancer/Widgets/navbar.dart';
 import '../../Widgets/navbar.dart';
@@ -41,11 +42,14 @@ Future<void> login(String email, String password) async {
 
 // set value
     prefs.setString('auth-token', responseJson);
+    prefs.setBool('isLoggedIn', true);
   } else if (response.statusCode == 400) {
     print(response.body);
   } else {
     // If the server did not return a 201 CREATED response,
     // then throw an exception.
+    final prefs = await SharedPreferences.getInstance();
+    prefs.setBool('isLoggedIn', false);
     throw Exception('Failed to create data.');
   }
 }
@@ -189,7 +193,7 @@ class _LoginPageState extends State<LoginPage> {
                 ),
                 onPressed: () => {
                   Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => MapView()))
+                      MaterialPageRoute(builder: (context) => SignUp()))
                 },
               ))
             ],

@@ -1,10 +1,11 @@
-// ignore_for_file: deprecated_member_use, prefer_const_constructors
+// ignore_for_file: deprecated_member_use, prefer_const_constructors, unrelated_type_equality_checks
 
 import 'dart:convert';
 import 'dart:typed_data';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:worksaga_freelancer/Screens/homepage.dart';
 import '../../models/signupmodel.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -41,12 +42,15 @@ Future<void> createAlbum(
     final prefs = await SharedPreferences.getInstance();
 
 // set value
-    prefs.setString('auth-token', responseJson);
+    await prefs.setString('auth-token', responseJson);
+    await prefs.setInt('isLoggedIn', 6969);
   } else if (response.statusCode == 400) {
     print(response.body);
   } else {
     // If the server did not return a 201 CREATED response,
     // then throw an exception.
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setInt('isLoggedIn', 1111);
     throw Exception('Failed to create data.');
   }
 }
@@ -253,9 +257,12 @@ class _SignUpState extends State<SignUp> {
                   style: ElevatedButton.styleFrom(
                       primary: Color(0xff182a42),
                       onPrimary: Color.fromARGB(255, 255, 255, 255)),
-                  onPressed: () {
+                  onPressed: () async {
                     createAlbum(_name.text, _email.text, _password.text,
                         _mobileNo.text);
+                    final prefs = await SharedPreferences.getInstance();
+                    final int? isLoggedIn = prefs.getInt('isLoggedIn');
+                    print(isLoggedIn);
                   },
                   child: Text(
                     'Sign Up',
