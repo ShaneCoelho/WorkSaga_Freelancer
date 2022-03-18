@@ -23,13 +23,14 @@ class _SplashScreenState extends State<SplashScreen> {
     Future<void> main() async {
       WidgetsFlutterBinding.ensureInitialized();
       final SharedPreferences prefs = await SharedPreferences.getInstance();
-      var isLoggedIn = (prefs.getBool('isLoggedIn') == null)
-          ? false
-          : prefs.getBool('isLoggedIn');
+      var isLoggedIn = false;
+      if ((prefs.getInt('isLoggedIn') == 1)) {
+        isLoggedIn = true;
+      }
       print(isLoggedIn);
       runApp(MaterialApp(
         debugShowCheckedModeBanner: false,
-        home: isLoggedIn! ? HomePage() : LoginPage(),
+        home: isLoggedIn ? HomePage() : LoginPage(),
       ));
     }
 

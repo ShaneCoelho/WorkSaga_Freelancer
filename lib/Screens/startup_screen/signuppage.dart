@@ -36,21 +36,26 @@ Future<void> createAlbum(
     // If the server did return a 201 CREATED response,
     // then parse the JSON.
 
-    final responseJson = jsonDecode(response.body).cast<Map<String, dynamic>>();
-    print(responseJson);
-
-    final prefs = await SharedPreferences.getInstance();
-
+    final parsedJson = jsonDecode(response.body);
+    final SharedPreferences sharedPreferences =
+        await SharedPreferences.getInstance();
+    await sharedPreferences.setString('auth-token', parsedJson['authtoken']);
+    await sharedPreferences.setInt('isLoggedIn', 1);
 // set value
-    await prefs.setString('auth-token', responseJson);
-    await prefs.setInt('isLoggedIn', 6969);
+
   } else if (response.statusCode == 400) {
     print(response.body);
+    final SharedPreferences sharedPreferences =
+        await SharedPreferences.getInstance();
+
+    await sharedPreferences.setInt('isLoggedIn', 0);
   } else {
     // If the server did not return a 201 CREATED response,
     // then throw an exception.
-    final prefs = await SharedPreferences.getInstance();
-    await prefs.setInt('isLoggedIn', 1111);
+    final SharedPreferences sharedPreferences =
+        await SharedPreferences.getInstance();
+
+    await sharedPreferences.setInt('isLoggedIn', 0);
     throw Exception('Failed to create data.');
   }
 }
@@ -261,8 +266,16 @@ class _SignUpState extends State<SignUp> {
                     createAlbum(_name.text, _email.text, _password.text,
                         _mobileNo.text);
                     final prefs = await SharedPreferences.getInstance();
-                    final int? isLoggedIn = prefs.getInt('isLoggedIn');
+                    var isLoggedIn = false;
+                    if ((prefs.getInt('isLoggedIn') == 1)) {
+                      isLoggedIn = true;
+                    }
                     print(isLoggedIn);
+                    Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) =>
+                                isLoggedIn ? LoginPage() : HomePage()));
                   },
                   child: Text(
                     'Sign Up',

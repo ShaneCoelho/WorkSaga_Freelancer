@@ -9,6 +9,7 @@ import 'package:worksaga_freelancer/Screens/profile/profile.dart';
 import 'package:worksaga_freelancer/Screens/startup_screen/signuppage.dart';
 import 'package:worksaga_freelancer/Widgets/navbar.dart';
 import '../../Widgets/navbar.dart';
+
 import '../homepage.dart';
 
 import 'package:http/http.dart' as http;
@@ -35,21 +36,22 @@ Future<void> login(String email, String password) async {
     // If the server did return a 201 CREATED response,
     // then parse the JSON.
 
-    final responseJson = jsonDecode(response.body).cast<Map<String, dynamic>>();
-    print(responseJson);
-
-    final prefs = await SharedPreferences.getInstance();
-
-// set value
-    prefs.setString('auth-token', responseJson);
-    prefs.setBool('isLoggedIn', true);
+    final parsedJson = jsonDecode(response.body);
+    final SharedPreferences sharedPreferences =
+        await SharedPreferences.getInstance();
+    await sharedPreferences.setString('auth-token', parsedJson['authtoken']);
+    await sharedPreferences.setInt('isLoggedIn', 1);
   } else if (response.statusCode == 400) {
     print(response.body);
+    final SharedPreferences sharedPreferences =
+        await SharedPreferences.getInstance();
   } else {
     // If the server did not return a 201 CREATED response,
     // then throw an exception.
-    final prefs = await SharedPreferences.getInstance();
-    prefs.setBool('isLoggedIn', false);
+    final SharedPreferences sharedPreferences =
+        await SharedPreferences.getInstance();
+
+    await sharedPreferences.setInt('isLoggedIn', 0);
     throw Exception('Failed to create data.');
   }
 }
