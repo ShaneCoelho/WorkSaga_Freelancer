@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'package:worksaga_freelancer/Widgets/navbar.dart';
+
 class HomePage extends StatefulWidget {
   @override
   State<HomePage> createState() => _HomePageState();
@@ -10,6 +12,7 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
+      body: Container(),
     );
   }
 }

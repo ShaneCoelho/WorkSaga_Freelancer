@@ -1,18 +1,23 @@
 import 'package:flutter/material.dart';
+import 'package:worksaga_freelancer/Screens/homepage.dart';
 
 class Navbar extends StatefulWidget {
-  const Navbar({Key? key}) : super(key: key);
-
   @override
-  _NavbarState createState() => _NavbarState();
+  NavbarState createState() => NavbarState();
 }
 
-class _NavbarState extends State<Navbar> {
+class NavbarState extends State<Navbar> {
   int _selectedItemIndex = 0;
-  final List<Widget> _children = [];
+  final List<Widget> _children = [
+    HomePage(),
+    HomePage(),
+    HomePage(),
+    HomePage()
+  ];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        backgroundColor: Colors.white,
         bottomNavigationBar: Row(
           children: <Widget>[
             buildNavBarItem(Icons.home, 0),
@@ -42,13 +47,16 @@ class _NavbarState extends State<Navbar> {
                 gradient: LinearGradient(colors: [
                   Colors.green.withOpacity(0.3),
                   Colors.green.withOpacity(0.015),
-                ], begin: Alignment.bottomCenter, end: Alignment.topCenter)
-                // color: index == _selectedItemIndex ? Colors.green : Colors.white,
-                )
+                ], begin: Alignment.bottomCenter, end: Alignment.topCenter),
+                color:
+                    index == _selectedItemIndex ? Colors.green : Colors.white,
+              )
             : BoxDecoration(),
         child: Icon(
           icon,
-          color: index == _selectedItemIndex ? Colors.black : Colors.grey,
+          color: index == _selectedItemIndex
+              ? Color.fromARGB(255, 115, 199, 104)
+              : Colors.grey,
         ),
       ),
     );
