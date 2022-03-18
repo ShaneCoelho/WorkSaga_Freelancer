@@ -45,6 +45,7 @@ Future<void> login(String email, String password) async {
     print(response.body);
     final SharedPreferences sharedPreferences =
         await SharedPreferences.getInstance();
+    await sharedPreferences.setInt('isLoggedIn', 0);
   } else {
     // If the server did not return a 201 CREATED response,
     // then throw an exception.
@@ -171,8 +172,19 @@ class _LoginPageState extends State<LoginPage> {
                     style: ElevatedButton.styleFrom(
                         primary: Color(0xff182a42),
                         onPrimary: Color.fromARGB(255, 255, 255, 255)),
-                    onPressed: () {
+                    onPressed: () async {
                       login(_email.text, _password.text);
+                      final prefs = await SharedPreferences.getInstance();
+                      var isLoggedIn = false;
+                      if ((prefs.getInt('isLoggedIn') == 1)) {
+                        isLoggedIn = true;
+                      }
+                      print(isLoggedIn);
+                      Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) =>
+                                  isLoggedIn ? LoginPage() : MapView()));
                     },
                     child: Text(
                       'Log In',

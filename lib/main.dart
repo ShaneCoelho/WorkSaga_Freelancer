@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:worksaga_freelancer/Screens/profile/profile.dart';
 // import './Screens/homepage.dart';
 import './Screens/startup_screen/splash.dart';
 import './Widgets/userbar.dart';

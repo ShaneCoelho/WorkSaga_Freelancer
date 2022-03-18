@@ -9,6 +9,7 @@ import 'package:geolocator/geolocator.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:worksaga_freelancer/Widgets/navbar.dart';
 
 class MapView extends StatefulWidget {
   @override
@@ -179,6 +180,10 @@ class _MapViewState extends State<MapView> {
                                           country!,
                                           city!);
                                       print(placemarks[1]);
+                                      Navigator.pushReplacement(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) => Navbar()));
                                     },
                                     icon: Icon(Icons
                                         .gps_fixed_outlined), //icon data for elevated button

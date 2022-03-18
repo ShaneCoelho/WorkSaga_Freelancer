@@ -6,6 +6,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:worksaga_freelancer/Screens/homepage.dart';
+import 'package:worksaga_freelancer/Screens/location/mapview.dart';
 import '../../models/signupmodel.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -275,7 +276,7 @@ class _SignUpState extends State<SignUp> {
                         context,
                         MaterialPageRoute(
                             builder: (context) =>
-                                isLoggedIn ? LoginPage() : HomePage()));
+                                isLoggedIn ? LoginPage() : MapView()));
                   },
                   child: Text(
                     'Sign Up',
