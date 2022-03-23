@@ -4,6 +4,7 @@ import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:worksaga_freelancer/Screens/profile/nameedit.dart';
 
+import '../../Widgets/appbar.dart';
 import 'aboutedit.dart';
 import 'categories.dart';
 
@@ -13,12 +14,15 @@ class Profile extends StatefulWidget {
 }
 
 class _ProfileState extends State<Profile> {
+  late String name;
   late PageController pageViewController;
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   Widget build(BuildContext context) {
+    // Size get; preferredSize => const Size.fromHeight(100);
     return Scaffold(
+      // appBar: AppBarWidget();
       key: scaffoldKey,
       backgroundColor: Colors.white,
       body: GestureDetector(

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../Widgets/navbar.dart';
 import 'LoginPage.dart';
 import './splashPage.dart';
 import 'LoginPage.dart';
@@ -30,7 +31,7 @@ class _SplashScreenState extends State<SplashScreen> {
       print(isLoggedIn);
       runApp(MaterialApp(
         debugShowCheckedModeBanner: false,
-        home: isLoggedIn ? HomePage() : LoginPage(),
+        home: isLoggedIn ? Navbar() : LoginPage(),
       ));
     }
 
