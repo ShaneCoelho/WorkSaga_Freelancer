@@ -181,8 +181,10 @@ class _MapViewState extends State<MapView> {
                                           city!);
                                       print(placemarks[1]);
                                       Navigator.pushReplacement(
+                                        
                                           context,
                                           MaterialPageRoute(
+                                            
                                               builder: (context) => Navbar()));
                                     },
                                     icon: Icon(Icons
