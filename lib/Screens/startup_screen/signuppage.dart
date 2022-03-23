@@ -7,6 +7,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:worksaga_freelancer/Screens/homepage.dart';
 import 'package:worksaga_freelancer/Screens/location/mapview.dart';
+import 'package:worksaga_freelancer/Widgets/navbar.dart';
 import '../../models/signupmodel.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -276,7 +277,7 @@ class _SignUpState extends State<SignUp> {
                         context,
                         MaterialPageRoute(
                             builder: (context) =>
-                                isLoggedIn ? LoginPage() : MapView()));
+                                isLoggedIn ? LoginPage() : Navbar()));
                   },
                   child: Text(
                     'Sign Up',

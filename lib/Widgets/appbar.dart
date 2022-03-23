@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:worksaga_freelancer/Screens/location/mapview.dart';
 
 class AppBarWidget extends StatefulWidget {
   @override
@@ -11,26 +12,38 @@ class _AppBarWidgetState extends State<AppBarWidget> {
 
   @override
   Widget build(BuildContext context) {
-    
-    return  AppBar(
-            
-            elevation: 0,
-            backgroundColor: Color.fromARGB(255, 255, 255, 255),
-            flexibleSpace: Container(
-              width: double.infinity ,
-              child: Padding(
-                padding: const EdgeInsets.fromLTRB(10, 10, 0, 0),
-                child: Column(
-                  
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-            
-                  Text('Work Saga', style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold, fontFamily: 'NanumMyeongjo'),),
-                  TextButton.icon(onPressed: (){}, icon: Icon( Icons.location_on, size: 16,color: Colors.black,), label: Text('Location',style: TextStyle(color: Colors.black),))
-                ]
-                ),
-              )
-            ),
-          );
+    return AppBar(
+      elevation: 0,
+      backgroundColor: Color.fromARGB(255, 255, 255, 255),
+      flexibleSpace: Container(
+          width: double.infinity,
+          child: Padding(
+            padding: const EdgeInsets.fromLTRB(10, 10, 0, 0),
+            child:
+                Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+              Text(
+                'Work Saga',
+                style: TextStyle(
+                    fontSize: 24,
+                    fontWeight: FontWeight.bold,
+                    fontFamily: 'NanumMyeongjo'),
+              ),
+              TextButton.icon(
+                  onPressed: () {
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => MapView()));
+                  },
+                  icon: Icon(
+                    Icons.location_on,
+                    size: 16,
+                    color: Colors.black,
+                  ),
+                  label: Text(
+                    'Location',
+                    style: TextStyle(color: Colors.black),
+                  ))
+            ]),
+          )),
+    );
   }
 }

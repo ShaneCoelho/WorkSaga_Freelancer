@@ -180,12 +180,6 @@ class _MapViewState extends State<MapView> {
                                           country!,
                                           city!);
                                       print(placemarks[1]);
-                                      Navigator.pushReplacement(
-                                        
-                                          context,
-                                          MaterialPageRoute(
-                                            
-                                              builder: (context) => Navbar()));
                                     },
                                     icon: Icon(Icons
                                         .gps_fixed_outlined), //icon data for elevated button
