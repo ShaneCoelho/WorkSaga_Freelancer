@@ -19,7 +19,7 @@ class MapView extends StatefulWidget {
 Future<void> location(double longitude, double latitude, String pincode,
     String country, String locality) async {
   final response = await http.post(
-    Uri.parse('https://worksaga.herokuapp.com/api/freelancerprofile/test'),
+    Uri.parse('https://worksaga.onrender.com/api/freelancerprofile/test'),
     headers: <String, String>{
       'Content-Type': 'application/json; charset=UTF-8',
     },

@@ -20,7 +20,7 @@ class _ProfileEditState extends State<ProfileEdit> {
     late ProfileModel model;
 
     var url =
-        Uri.parse("https://worksaga.herokuapp.com/api/freelancerauth/getuser");
+        Uri.parse("https://worksaga.onrender.com/api/freelancerauth/getuser");
 
     var response = await http.post(url, headers: <String, String>{
       "content-type": "application/json",

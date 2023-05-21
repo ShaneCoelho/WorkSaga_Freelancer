@@ -44,9 +44,9 @@ class HomePageWidget extends StatelessWidget {
                           itemBuilder: (context, _) => Icon(
                             Icons.star,
                             color: Colors.amber,
-                            size: 2,
+                            size: 1,
                           ),
-                          itemSize: 20,
+                          itemSize: 10,
                           onRatingUpdate: (rating) {
                             print(rating);
                           },
